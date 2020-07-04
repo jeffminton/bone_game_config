@@ -1,0 +1,68 @@
+<div class='container'>
+    <div class=row>
+        <div class='col'>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-primary btn-block text-left" type="button" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Current Config:
+                                <% if @current_config != nil %>
+                                <%= @current_config.name %>
+                                <% else %>
+                                No Current config
+                                <% end %>
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class='col-lg-6 col-md-6 col-sm-12'>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Question</th>
+                                            <th scope="col">Answer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% @current_config.maps.each do |map| %>
+                                        <tr>
+                                            <td>
+                                                <%= map.question %>
+                                            </td>
+                                            <td>
+                                                <%= map.answer %>
+                                            </td>
+                                        </tr>
+                                        <% end %>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-lg-3 col-md-3'>
+            <%= link_to 'configs/new', class: 'btn btn-primary btn-block' do %>
+                New Config
+            <% end %>
+        </div>
+        <div class='col-lg-3 col-md-3'>
+            <%= link_to 'configs/load', class: 'btn btn-primary btn-block' do %>
+                Load Config
+            <% end %>
+        </div>
+        <div class='col-lg-3 col-md-3'>
+            <%= link_to 'configs/edit', class: 'btn btn-primary btn-block' do %>
+                Edit Config
+            <% end %>
+        </div>
+    </div>
+</div>

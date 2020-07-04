@@ -1,0 +1,49 @@
+<div class='container'>
+    <div class='row'>
+        <div class='col'>
+            <h3>Create New Config</h3>
+        </div>
+    </div>
+    <%= form_with(model: @config, method: 'post') do |f| %>
+        <div class=row>
+            <div class='col-sm-6 col-lg-3 col-md-3'>
+                <div class="form-group field">  
+                    <%= f.label :name, 'Config Name' %><br>
+                    <%= f.text_field :name, class: 'form-control', data: {index: 2} %>
+                </div>
+            </div>
+        </div>
+        <% 
+            question_options = options_for_select(QUESTIONS)
+            answer_options = options_for_select(ANSWERS)
+        %>
+        <div class=row>
+            <div class='col-sm-6 col-lg-2 col-md-2'>
+                Question Keys
+            </div>
+            <div class='col-sm-6 col-lg-2 col-md-2'>
+                Answer Keys
+            </div>
+        </div>
+        <% @config.maps.each do |map| %>
+            <div class=row>
+                <%= f.fields_for(:map, map) do |map_form| %>
+                        <div class='col-sm-6 col-lg-2 col-md-2'>
+                            <%= f.label map.question, class: 'form-control', name: 'config[map][question][]', value: map.question%> 
+                        </div>
+                        <div class='col-sm-6 col-lg-2 col-md-2'>
+                            <%= select_tag 'config[map][answer][]', answer_options, {class: 'form-control'} %>
+                        </div>
+                <% end %>
+            </div>
+        <% end %>
+        
+        <div class=row>
+            <div class="col-md-12 center">
+                <%= link_to 'Cancel', root_path, class: 'btn btn-secondary' %>
+                <button type="submit" class="btn btn-primary sign-up-button" id="sign-up-button">Save</button>
+            </div>
+        </div>
+    <% end %>
+    
+</div>
